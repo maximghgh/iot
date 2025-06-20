@@ -31,7 +31,8 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache \
-    && php artisan storage:link
+    && mkdir -p storage/app/public \
+    && php artisan storage:link || true
 
 # Раздача прав
 RUN chown -R www-data:www-data /var/www \
