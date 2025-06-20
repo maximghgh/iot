@@ -41,4 +41,4 @@ RUN chown -R www-data:www-data /var/www \
 EXPOSE 8000
 
 # Запускаем Laravel сервер на папке public
-CMD php -S 0.0.0.0:$PORT -t public
+CMD ["sh","-c","exec php -S 0.0.0.0:${PORT} -t public"]
