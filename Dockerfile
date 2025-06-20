@@ -25,15 +25,19 @@ WORKDIR /var/www
 # Копируем проект
 COPY . .
 
-# Установка зависимостей
+# Установка зависимостей Laravel и сборка фронта
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader \
-    && npm install && npm run build
+    && npm install && npm run build \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache \
+    && php artisan storage:link
 
 # Раздача прав
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
 
-# Открытый порт
 EXPOSE 8000
 
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+# Запускаем Laravel сервер на папке public
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000", "--env=production"]
