@@ -24,5 +24,5 @@ RUN chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 8000
-CMD ["php", "-d", "variables_order=EGPCS", "-S", "0.0.0.0:${PORT}", "-t", "public"]
+CMD ["sh","-c","exec php -S 0.0.0.0:8080 -t public"]
 
