@@ -88,6 +88,10 @@ Route::get('/page-courses', function () {
     return view('page-courses');
 })->name('page-courses');
 
+Route::get('/admin/addcourse', function () {
+    return view('admin.addcourse');
+})->name('admin.addcourse');
+
 Route::get('/verify', function () {
     return view('verify');
 })->name('verify');

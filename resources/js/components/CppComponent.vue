@@ -962,6 +962,7 @@ function downloadPdf(path) {
     justify-content: center;
     min-height: 200px;
     height: 100%;
+    width: 200px;
     gap: 20px;
     background: #fff;
     border-radius: 8px;

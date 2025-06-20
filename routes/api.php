@@ -112,10 +112,20 @@ Route::patch('/directions/{id}', [DirectionController::class, 'update']);
 // Удаление направления
 Route::delete('/directions/{id}', [DirectionController::class, 'destroy']);
 
+// Получить комментарии для новости {id}
+Route::get('comments/news/{id}', [CommentController::class, 'index']);
+
 
 // Добавление частых вопросов
 Route::post('/faqs', [FaqController::class, 'store']);
 Route::get('/faqs', [FaqController::class, 'index']);
+
+Route::apiResource('faqs', FaqController::class)
+     ->only(['update','destroy']);
+
+// routes/api.php
+Route::get('/stats', [App\Http\Controllers\StatsController::class, 'index']);
+
 
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);

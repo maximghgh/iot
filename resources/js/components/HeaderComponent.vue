@@ -36,6 +36,12 @@
                                     class="avatar__user"
                                 />
                             </a>
+                            <a
+                                href="#"
+                                @click="logout"
+                                class="personal-area__button personal-area__button--none"
+                                >Выйти</a
+                            >
                             <div class="header__lk-name">
                                 <a
                                     href="/cabinet"
@@ -190,6 +196,9 @@ export default {
 @media (max-width: 450px) {
     .header__lk-name {
         display: none;
+    }
+    .personal-area__button--none{
+        display: block;
     }
 }
 </style>

@@ -176,6 +176,8 @@
                                             <img
                                                 :src="course.card_image || '/img/logo_placeholder.png'"
                                                 alt="Изображение курса"
+                                                width="100"
+                                                height="100"
                                             />
                                         </div>
                                         <div class="course__card-title">
@@ -723,10 +725,6 @@ function scrollToCourse() {
 </script>
 
 <style>
-
-.category__one-info{
-    width: 600px;
-}
 .payment-block{
     display: flex;
     align-items: center;
@@ -1151,8 +1149,10 @@ function scrollToCourse() {
     cursor: pointer;
     z-index: 10;
 }
-
 @media (max-width: 1100px) {
+     .modal__h2--auth{
+        font-size: 30px;
+    }
     .modal-content__block{
         max-width: 700px;
     }
@@ -1161,6 +1161,8 @@ function scrollToCourse() {
     }
     .modal-close--auth p {
         text-align: center;
+        font-size: 15px;
+        width: 400px;
     }
     .modal-content {
         padding-top: 0px;
@@ -1187,6 +1189,14 @@ function scrollToCourse() {
     .form__input--card{
         width: 280px;
     }
+    .auth-buttons{
+        flex-direction: row;
+    }
+}
+@media (max-width: 767px) {
+    .modal__h2--auth{
+        font-size: 30px;
+    }
 }
 @media (max-width: 550px) {
     .block-info {
@@ -1212,12 +1222,11 @@ function scrollToCourse() {
         background-color: rgba(128, 128, 128, 0.637);
     }
 }
-@media (max-width: 767px) {
-    .modal__h2--auth {
-        font-size: 2.15em;
-    }
-}
 @media (max-width: 515px) {
+    .modal-close--auth p{
+        text-align: center;
+        width: 200px;
+    }
     .modal__h2--auth {
         font-size: 1.5em;
     }
@@ -1257,13 +1266,17 @@ function scrollToCourse() {
         text-align: center;
     }
     .modal__h2--auth{
+        font-size: 25px;
+        width: 200px;
         margin: 0 0 15px;
     }
     .modal-close--auth{
+        flex-direction: column;
         max-width: 400px;
     }
     .auth-buttons{
         margin-top: 25px;
+        flex-direction: column;
     }
     .button_white--auth{
         width: 150px;
@@ -1279,6 +1292,19 @@ function scrollToCourse() {
     }
     .modal-close:hover {
         background-color: rgba(128, 128, 128, 0.637);
+    }
+}
+@media (max-width: 410px){
+    .modal-content{
+        width: 300px;
+    }
+    .modal-content__block{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-close--auth{
+        max-width: 300px;
     }
 }
 @media (max-width: 650px) {

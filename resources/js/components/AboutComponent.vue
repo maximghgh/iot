@@ -21,20 +21,20 @@
                     </div>
                 </section>
                 <section class="about-article">
-                     <div class="metrics-grid">
-                        <div class="metric-card">
-                            <p class="metric-value">787</p>
-                            <p class="metric-label">курсов</p>
-                        </div>
-                        <div class="metric-card">
-                            <p class="metric-value">578</p>
-                            <p class="metric-label">экспертов</p>
-                        </div>
-                        <div class="metric-card">
-                            <p class="metric-value">10</p>
-                            <p class="metric-label">направлений</p>
-                        </div>
+                  <div class="metrics-grid">
+                    <div class="metric-card">
+                      <p class="metric-value">{{ stats.courses }}</p>
+                      <p class="metric-label">курсов</p>
                     </div>
+                    <div class="metric-card">
+                      <p class="metric-value">{{ stats.experts }}</p>
+                      <p class="metric-label">экспертов</p>
+                    </div>
+                    <div class="metric-card">
+                      <p class="metric-value">{{ stats.directions }}</p>
+                      <p class="metric-label">направлений</p>
+                    </div>
+                  </div>
                 </section>
                 <!-- Features Section -->
                 <section class="features-section">
@@ -95,7 +95,26 @@
     </div>
 </template>
 
-<script></script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const stats = ref({
+  courses:    0,
+  experts:    0,
+  directions: 0,
+});
+
+// при монтировании забираем цифры
+onMounted(async () => {
+  try {
+    const { data } = await axios.get('/api/stats');
+    stats.value = data;
+  } catch (err) {
+    console.error('Не удалось загрузить статистику:', err);
+  }
+});
+</script>
 
 <style scoped>
 .ecosystem-section {
@@ -181,9 +200,10 @@
   line-height: 1.6;
   color: #4b5563;
 }
-
-/* Адаптив */
 @media (max-width: 768px) {
+  .features-grid{
+    grid-template-columns: repeat(1, minmax(240px, 600px));
+  }
   .features-section {
     padding: 60px 0;
   }
@@ -192,7 +212,25 @@
     margin-bottom: 40px;
   }
   .feature-card {
+    margin: 0 20px;
     padding: 24px 16px;
+  }
+  .ecosystem-title{
+    font-size: 35px;
+  }
+}
+/* Адаптив */
+@media (max-width: 600px) {
+  .intro__title{
+    font-size: 31px !important;
+  }
+}
+@media (max-width: 510px) {
+  .intro__title{
+    font-size: 28px !important;
+  }
+  .intro__text{
+    font-size: 15px !important;
   }
 }
 .metrics-grid {

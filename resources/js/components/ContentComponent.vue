@@ -1,6 +1,8 @@
 <template>
     <div class="maincontainer">
-        <button @click="goBack" class="btn-back">< Назад</button>
+        <div class="backs">
+            <button @click="goBack" class="btn-back">Вернуться в личный кабинет</button>
+        </div>
         <div class="container flex">
             <!-- Левый сайдбар -->
             <aside class="sidebar">
@@ -24,6 +26,7 @@
                             alt="Изображение курса"
                             width="93"
                             height="92"
+                            class="logo_couerses"
                         />
                     </div>
                     <div class="progres">
@@ -914,6 +917,13 @@ async function dislikeComment(comment) {
 </script>
 
 <style scoped>
+.backs{
+    display: flex;
+    height: 20px;
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+}
 .collapse-enter-active,
 .collapse-leave-active {
     transition: max-height 0.7s ease-in, opacity 0.5s ease;
@@ -945,8 +955,7 @@ async function dislikeComment(comment) {
     justify-content: unset;
 }
 .btn-back {
-    position: relative;
-    left: 310px;
+    font-size: 15px;
     background: none;
     border: none;
     color: #5b4bff;
@@ -1422,5 +1431,29 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+@media (max-width: 767px){
+    .btn-back{
+        left: 6%;
+    }
+    .sidebar{
+        width: 250px;
+    }
+    .logo_couerses{
+        width: 50px;
+        height: 50px;
+    }
+}
+@media (max-width: 680px){
+    .card{
+        max-width: 100%;
+    }
+    .sidebar{
+        width: 100%;
+    }
+    .flex{
+        justify-content: center;
+        flex-direction: column;
+    }
 }
 </style>

@@ -4,7 +4,17 @@
             <div class="container">
                 <section class="course">
                     <div class="course__inner">
-                        <div class="course__sidebar">
+                      <div
+                            class="course__button course__button_active"
+                            @click="toggleSidebar"
+                        >
+                            <img
+                                src="https://devskills.foncode.ru/img/filter.jpg"
+                                width="40"
+                                height="40"
+                            />
+                        </div>
+                        <div class="course__sidebar" :class="{ course__sidebar_open: isSidebarOpen }">
                             <div class="course__sidebar-block">
                                 <div class="course__sidebar-title">
                                     Тематика
@@ -96,7 +106,9 @@
                             </div>
                         </div>   
                         <div class="course__content">
+                          <div class="block__filter">
                             <h2>Все программы обучения</h2>
+                          </div>
                             <div class="course__menu">
                                 <!-- Пункт "Все направления" -->
                                 <div
@@ -464,12 +476,38 @@
                 </div>
             </div>
         </div>
+        <transition name="modal">
+            <div
+                v-if="showAuthModal"
+                class="modal-overlay modal-overlay--auth"
+                @click.self="showAuthModal = false"
+            >
+                <div class="modal-content__block modal-close--auth">
+                <button class="modal-close modal-close--auth" @click="showAuthModal = false">X</button>
+                <div class="modal-content modal-content--auth">
+                    <h2 class="modal__h2--auth">Войдите или зарегистрируйтесь</h2>
+                    <p>Чтобы приобрести курс или заказать консультацию</p>
+                    <div class="auth-buttons">
+                    <a href="/login" class="button button_white--auth">Войти</a>
+                    <a href="/register" class="button button_white--auth">Регистрация</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted, watch, computed } from "vue";
 import axios from "axios";
+
+const isSidebarOpen = ref(false)
+const showAuthModal = ref(false)
+// 2) метод-переключатель
+function toggleSidebar() {
+  isSidebarOpen.value = !isSidebarOpen.value
+}
 
 /* --- Реактивные переменные общего каталога --- */
 const user                  = ref(null);
@@ -665,6 +703,7 @@ onMounted(async () => {
 
 
 <style scoped>
+
 /* Оверлей модалки */
 .modal-overlay {
   position: fixed;
@@ -673,7 +712,7 @@ onMounted(async () => {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
+  z-index: 5000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -960,33 +999,203 @@ width: 100%;
   justify-content: center;
   margin-top: 50px;
 }
-
+.course__button {
+    display: none;
+    width: 40px;
+    height: 38px;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    z-index: 10;
+}
+@media (max-width: 991px) {
+    .course__button {
+        display: block;
+    }
+    .course__sidebar-check--lang {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 10px;
+    }
+}
 /* Адаптивные правки для модалок */
 @media (max-width: 1100px) {
-  .modal-content__block {
-    max-width: 700px;
-  }
-  .modal-content {
-    grid-template-columns: 1fr;
-    max-height: 80vh;
-    overflow-y: auto;
-    padding-top: 0;
-  }
+     .modal__h2--auth{
+        font-size: 30px;
+    }
+    .modal-content__block{
+        max-width: 700px;
+    }
+    .modal-close--auth{
+        max-width: 500px;
+    }
+    .modal-close--auth p {
+        text-align: center;
+        font-size: 15px;
+        width: 400px;
+    }
+    .modal-content {
+        padding-top: 0px;
+        grid-template-columns: 1fr;
+        overflow-y: auto; /* или scroll */
+        max-height: 80vh;
+    }
+    .floating-label input {
+        width: 614px;
+    }
+    .form__input{
+        width: 614px;
+    }
+    .modal-close {
+        background-color: #ffffff;
+    }
+    .modal-close:hover {
+        background-color: rgba(128, 128, 128, 0.637);
+    }
+    .block-card{
+        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .form__input--card{
+        width: 280px;
+    }
+    .auth-buttons{
+        flex-direction: row;
+    }
+}
+@media (max-width: 767px) {
+    .modal__h2--auth{
+        font-size: 30px;
+    }
 }
 @media (max-width: 550px) {
-  .modal-content {
-    width: 500px;
-    max-height: 80vh;
-  }
+    .block-info {
+        min-height: 200px;
+        align-items: center;
+    }
+    .block-bg {
+        display: none;
+    }
+    .block__price {
+        text-align: center;
+    }
+    .modal-content {
+        width: 500px;
+        padding-top: 0px;
+        overflow-y: auto; /* или scroll */
+        max-height: 80vh;
+    }
+    .modal-close {
+        background-color: #ffffff;
+    }
+    .modal-close:hover {
+        background-color: rgba(128, 128, 128, 0.637);
+    }
 }
 @media (max-width: 515px) {
-  .modal-content {
-    width: 400px;
-    max-height: 80vh;
-  }
-  .button_white--auth {
-    width: 150px;
-  }
+    .modal-close--auth p{
+        text-align: center;
+        width: 200px;
+    }
+    .modal__h2--auth {
+        font-size: 1.5em;
+    }
+    .block-info {
+        min-height: 200px;
+        align-items: center;
+    }
+    .block-bg {
+        display: none;
+    }
+    .block__h2 {
+        font-size: 18px;
+        text-align: center;
+        margin: 0 40px 25px;
+    }
+    .radio-group {
+        width: 300px;
+    }
+    .forma {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+    .floating-label input {
+        width: 268px;
+        padding: 15px;
+    }
+    .form__input {
+        width: 268px;
+        padding: 15px;
+    }
+    .form-submit {
+        width: 300px;
+        padding: 20px;
+    }
+    .block__price {
+        text-align: center;
+    }
+    .modal__h2--auth{
+        font-size: 25px;
+        width: 200px;
+        margin: 0 0 15px;
+    }
+    .modal-close--auth{
+        flex-direction: column;
+        max-width: 400px;
+    }
+    .auth-buttons{
+        margin-top: 25px;
+        flex-direction: column;
+    }
+    .button_white--auth{
+        width: 150px;
+    }
+    .modal-content {
+        width: 400px;
+        padding-top: 0px;
+        overflow-y: auto; /* или scroll */
+        max-height: 80vh;
+    }
+    .modal-close {
+        background-color: #ffffff;
+    }
+    .modal-close:hover {
+        background-color: rgba(128, 128, 128, 0.637);
+    }
+}
+@media (max-width: 410px){
+    .modal-content{
+        width: 300px;
+    }
+    .modal-content__block{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-close--auth{
+        max-width: 300px;
+    }
+}
+@media (max-width: 650px) {
+    .course__menu {
+        display: flex;
+        align-items: unset;
+        justify-content: unset;
+        flex-wrap: unset;
+        gap: 20px;
+        overflow: auto;
+        margin: 0 -10px 40px;
+        padding: 0 10px 0;
+    }
+    .course__menu::-webkit-scrollbar {
+        display: none;
+    }
+    .course__menu-one {
+        height: 70px;
+        padding: 0px 20px;
+        border-radius: 25px;
+    }
 }
 
 @media (max-width: 650px) {

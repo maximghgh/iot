@@ -204,7 +204,6 @@
                                         : '/public/img/teacher.jpg'
                                 "
                                 alt="Teacher Image"
-                                class="avatar__teacher"
                             />
                             <div class="course-content__teacher-info">
                                 <p>{{ teacher.name }}</p>
@@ -308,6 +307,25 @@
                 
             </div>
         </div>
+        <transition name="modal">
+            <div
+                v-if="showAuthModal"
+                class="modal-overlay modal-overlay--auth"
+                @click.self="showAuthModal = false"
+            >
+                <div class="modal-content__block modal-close--auth">
+                <button class="modal-close modal-close--auth" @click="showAuthModal = false">X</button>
+                <div class="modal-content modal-content--auth">
+                    <h2 class="modal__h2--auth">Войдите или зарегистрируйтесь</h2>
+                    <p>Чтобы приобрести курс или заказать консультацию</p>
+                    <div class="auth-buttons">
+                    <a href="/login" class="button button_white--auth">Войти</a>
+                    <a href="/register" class="button button_white--auth">Регистрация</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
@@ -855,7 +873,7 @@ function scrollToCourse() {
 /* ---------- Оверлей ---------- */
 
 
-.avatar__teacher {
+.course-content__teacher-one img {
     width: 129px;
     height: 129px;
     border-radius: 50%;
@@ -881,7 +899,8 @@ function scrollToCourse() {
 
 /* Весь блок вопроса */
 .question {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto 10px;
     background: #f9f9f9;
     border-radius: 8px;
@@ -940,5 +959,183 @@ function scrollToCourse() {
 .slide-fade-leave-from {
     max-height: 500px; /* или больше, если ответ длинный */
     opacity: 1;
+}
+@media (max-width: 1100px) {
+     .modal__h2--auth{
+        font-size: 30px;
+    }
+    .modal-content__block{
+        max-width: 700px;
+    }
+    .modal-close--auth{
+        max-width: 500px;
+    }
+    .modal-close--auth p {
+        text-align: center;
+        font-size: 15px;
+        width: 400px;
+    }
+    .modal-content {
+        padding-top: 0px;
+        grid-template-columns: 1fr;
+        overflow-y: auto; /* или scroll */
+        max-height: 80vh;
+    }
+    .floating-label input {
+        width: 614px;
+    }
+    .form__input{
+        width: 614px;
+    }
+    .modal-close {
+        background-color: #ffffff;
+    }
+    .modal-close:hover {
+        background-color: rgba(128, 128, 128, 0.637);
+    }
+    .block-card{
+        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .form__input--card{
+        width: 280px;
+    }
+    .auth-buttons{
+        flex-direction: row;
+    }
+}
+@media (max-width: 767px) {
+    .modal__h2--auth{
+        font-size: 30px;
+    }
+}
+@media (max-width: 550px) {
+    .block-info {
+        min-height: 200px;
+        align-items: center;
+    }
+    .block-bg {
+        display: none;
+    }
+    .block__price {
+        text-align: center;
+    }
+    .modal-content {
+        width: 500px;
+        padding-top: 0px;
+        overflow-y: auto; /* или scroll */
+        max-height: 80vh;
+    }
+    .modal-close {
+        background-color: #ffffff;
+    }
+    .modal-close:hover {
+        background-color: rgba(128, 128, 128, 0.637);
+    }
+}
+@media (max-width: 515px) {
+    .modal-close--auth p{
+        text-align: center;
+        width: 200px;
+    }
+    .modal__h2--auth {
+        font-size: 1.5em;
+    }
+    .block-info {
+        min-height: 200px;
+        align-items: center;
+    }
+    .block-bg {
+        display: none;
+    }
+    .block__h2 {
+        font-size: 18px;
+        text-align: center;
+        margin: 0 40px 25px;
+    }
+    .radio-group {
+        width: 300px;
+    }
+    .forma {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+    .floating-label input {
+        width: 268px;
+        padding: 15px;
+    }
+    .form__input {
+        width: 268px;
+        padding: 15px;
+    }
+    .form-submit {
+        width: 300px;
+        padding: 20px;
+    }
+    .block__price {
+        text-align: center;
+    }
+    .modal__h2--auth{
+        font-size: 25px;
+        width: 200px;
+        margin: 0 0 15px;
+    }
+    .modal-close--auth{
+        flex-direction: column;
+        max-width: 400px;
+    }
+    .auth-buttons{
+        margin-top: 25px;
+        flex-direction: column;
+    }
+    .button_white--auth{
+        width: 150px;
+    }
+    .modal-content {
+        width: 400px;
+        padding-top: 0px;
+        overflow-y: auto; /* или scroll */
+        max-height: 80vh;
+    }
+    .modal-close {
+        background-color: #ffffff;
+    }
+    .modal-close:hover {
+        background-color: rgba(128, 128, 128, 0.637);
+    }
+}
+@media (max-width: 410px){
+    .modal-content{
+        width: 300px;
+    }
+    .modal-content__block{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-close--auth{
+        max-width: 300px;
+    }
+}
+@media (max-width: 650px) {
+    .course__menu {
+        display: flex;
+        align-items: unset;
+        justify-content: unset;
+        flex-wrap: unset;
+        gap: 20px;
+        overflow: auto;
+        margin: 0 -10px 40px;
+        padding: 0 10px 0;
+    }
+    .course__menu::-webkit-scrollbar {
+        display: none;
+    }
+    .course__menu-one {
+        height: 70px;
+        padding: 0px 20px;
+        border-radius: 25px;
+    }
 }
 </style>
